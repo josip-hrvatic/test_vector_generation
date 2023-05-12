@@ -36,5 +36,3 @@ const InputConditions: React.FC<InputConditionsProps> = ({ data }) => {
         />
     );
 };
-
-export default InputConditions;
