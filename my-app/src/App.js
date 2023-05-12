@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Layout, Menu, Typography, Button, Space } from 'antd';
-import InputConditions from './InputConditions';
+import InputConditions from './InputConditions.tsx';
 import TestPointCollections from './TestPointCollections.tsx';
 import TestVectorGenerator from './TestVectorGenerator.tsx';
 import Samples from './Samples'; // import the new Samples component
