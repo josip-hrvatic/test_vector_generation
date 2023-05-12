@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Layout, Menu, Typography, Button, Space } from 'antd';
 import InputConditions from './InputConditions';
 import TestPointCollections from './TestPointCollections.tsx';
-import TestVectorGenerator from './TestVectorGenerator';
+import TestVectorGenerator from './TestVectorGenerator.tsx';
 import Samples from './Samples'; // import the new Samples component
-import data from './data/L1.json';
+import data from './data/Demo.json';
 import logo2 from './pictures/logo-infineon.svg';
 import logo from './pictures/FER_logo_3.png';
 import logo3 from './pictures/stemgameslogo2.png';
