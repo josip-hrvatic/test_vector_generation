@@ -1,21 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Layout, Menu, Carousel, Typography, Row, Col, Image } from 'antd';
+import { Layout, Menu, Carousel, Typography } from 'antd';
 import InputConditions from './InputConditions';
 import TestPointCollections from './TestPointCollections.tsx';
 import TestVectorGenerator from './TestVectorGenerator';
 import data from './data/Demo.json';
-import logo from './pictures/logo-desktop-en.png';
+import logo from './pictures/logo-desktop-en.png'
 
 const { Header, Content, Footer } = Layout;
-const { Title, Text } = Typography;
+const { Title } = Typography;
+
 
 const App: React.FC = () => {
     return (
         <Router>
             <Layout className="layout">
                 <Header>
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
+                        <Menu.Item key="0">
+                            <Link to="/">Home Page</Link>
+                        </Menu.Item>
                         <Menu.Item key="1">
                             <Link to="/input-conditions">Input Conditions</Link>
                         </Menu.Item>
@@ -27,14 +31,14 @@ const App: React.FC = () => {
                         </Menu.Item>
                     </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 134px)' }}>
+                <Content style={{ padding: '0 50px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 134px)' }}>
                     <Routes>
                         <Route path="/" element={
-                            <div style={{ textAlign: 'center' }}>
-                                <Image width={200} src={logo} preview={false} />
+                            <div>
+                                <img src={logo} alt="Logo" style={{ width: '300px', marginBottom: '20px' }} />
                                 <Title level={2}>Welcome to the Test Vector Generator!</Title>
-                                <Text>Select an option from the menu to get started! </Text>
-                                <Text>Optimize your testing process!</Text>
+                                <Title level={3}>Select an option from the menu to get started!</Title>
+                                <Title level={3}>Optimize your testing process!</Title>
                             </div>
                         } />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
@@ -42,13 +46,7 @@ const App: React.FC = () => {
                         <Route path="test-vector-generator" element={<TestVectorGenerator data={data} />} />
                     </Routes>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    <Row justify="center" align="middle">
-                        <Col>
-                            <Text strong>©2023 Created by Team Odabrani</Text>
-                        </Col>
-                    </Row>
-                </Footer>
+                <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff', lineHeight: '2.5rem' }}>Odabrani Team ©2023 All Rights Reserved</Footer>
             </Layout>
         </Router>
     );
