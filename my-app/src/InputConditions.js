@@ -1,10 +1,8 @@
 import { Table } from 'antd';
 import React, { useState } from 'react';
 
-const InputConditions = ({ data }) => {
+const InputConditions = (jsonData ) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
-    debugger;
 
     const handleRowSelection = (selectedRowKeys) => {
         setSelectedRowKeys(selectedRowKeys);
@@ -22,7 +20,7 @@ const InputConditions = ({ data }) => {
         <>
             <Table
                 columns={columns}
-                dataSource={data.InputConditions}
+                dataSource={jsonData.data.Project.InputConditions}
                 rowKey="Id"
                 rowSelection={{
                     selectedRowKeys,
