@@ -11,9 +11,22 @@ interface Vector {
     Frequency: number;
 }
 
-interface VectorsProps {
+interface SampleData {
+    FamilyName: string;
+    ProductName: string;
+    Name: string;
+    Id: number;
+}
+
+interface TestPointCollection {
+    SampleIds: number[];
+    InputConditionId: string;
+    TestPoints: any[];
+}
+
+interface TestVectorGeneratorProps {
     data: {
-        VectorsCollection: Vector[];
+        TestPointCollections: TestPointCollection[];
     };
 }
 
@@ -69,7 +82,7 @@ const columns = [
     },
 ];
 
-const TestVectorGenerator: React.FC = () => {
+const TestVectorGenerator: React.FC = (data) => {
     const [currentSample, setCurrentSample] = useState(sampleData[0].Id);
     const [selectedColumns, setSelectedColumns] = useState<CheckboxValueType[]>(['Temperature', 'Humidity']);
     const [displayTable, setDisplayTable] = useState(false);
@@ -92,13 +105,24 @@ const TestVectorGenerator: React.FC = () => {
     }
 
     const generateTableData = () => {
-        setGeneratedColumns(columns.filter((col) => selectedColumns.includes(col.dataIndex as string)));
+        setGeneratedColumns(columns.filter((col) => selectedColumns.includes(col.dataIndex)));
         setDisplayTable(true);
-        //const keys = Object.keys(inputTestPoints);
-        //const values = Object.values(inputTestPoints);
 
-        // Calculate the cartesian product of the arrays
-        //const cartesianValues = cartesianProduct(values);
+        const inputTestPoints = {}
+        /*for (let i = 0; i < data.TestPointCollections.length; i++) {
+            if (data.TestPointCollections[i].SampleIds.includes(currentSample)) {
+                if (data.TestPointCollections[i].InputConditionId in inputTestPoints)
+                    inputTestPoints[data.TestPointCollections[i].InputConditionId].push(data.TestPointCollections[i].TestPoints);
+                else
+                    inputTestPoints[data.TestPointCollections[i].InputConditionId] = data.TestPointCollections[i].TestPoints;
+            }
+        }
+        const keys = Object.keys(inputTestPoints);
+        const values = Object.values(inputTestPoints);
+
+        //Calculate the cartesian product of the arrays
+        const cartesianValues = cartesianProduct(values);
+        console.log(cartesianValues)*/
     };
 
     return (
