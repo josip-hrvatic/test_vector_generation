@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { Layout, Menu, Typography, Button, Space } from 'antd';
 import InputConditions from './InputConditions.tsx';
 import TestPointCollections from './TestPointCollections.tsx';
-import TestVectorGenerator from './TestVectorGenerator.tsx';
+import TestVectorGenerator2 from './TestVectorGenerator2';
 import Samples from './Samples'; // import the new Samples component
 import data from './data/Demo.json';
 import logo2 from './pictures/logo-infineon.svg';
@@ -63,7 +63,7 @@ const App: React.FC = () => {
                         <Route path="samples" element={<Samples data={data} />} />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
                         <Route path="test-point-collections" element={<TestPointCollections data={data} />} />
-                        <Route path="test-vector-generator" element={<TestVectorGenerator data={data} />} />
+                        <Route path="test-vector-generator" element={<TestVectorGenerator2 data={data} />} />
                     </Routes>
                 </Content>
                 <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff', lineHeight: '2.5rem' }}>Odabrani Team ©2023 All Rights Reserved</Footer>
