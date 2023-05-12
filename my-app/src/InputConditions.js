@@ -1,5 +1,6 @@
 import { List, Checkbox, Card } from 'antd';
 import {useState} from 'react';
+import TestVectorGenerator from "./TestVectorGenerator";
 // Define your data types based on your data structure
 
 interface InputCondition {
@@ -10,7 +11,6 @@ interface InputCondition {
     TimeBetweenPoints: number;
     Id: number;
 }
-
 interface InputConditionsProps {
     data: {
         InputConditions: InputCondition[];
@@ -36,3 +36,4 @@ const InputConditions: React.FC<InputConditionsProps> = ({ data }) => {
         />
     );
 };
+export default InputConditions;
