@@ -4,7 +4,8 @@ import { Layout, Menu, Typography, Button, Space } from 'antd';
 import InputConditions from './InputConditions';
 import TestPointCollections from './TestPointCollections.tsx';
 import TestVectorGenerator from './TestVectorGenerator';
-import data from './data/Demo.json';
+import Samples from './Samples'; // import the new Samples component
+import data from './data/L1.json';
 import logo2 from './pictures/logo-infineon.svg';
 import logo from './pictures/FER_logo_3.png';
 import logo3 from './pictures/stemgameslogo2.png';
@@ -13,7 +14,6 @@ const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 
 const App: React.FC = () => {
-
     return (
         <Router>
             <Layout className="layout">
@@ -24,12 +24,15 @@ const App: React.FC = () => {
                             <Link to="/">Home Page</Link>
                         </Menu.Item>
                         <Menu.Item key="1">
-                            <Link to="/input-conditions">Input Conditions</Link>
+                            <Link to="/samples">Samples</Link>
                         </Menu.Item>
                         <Menu.Item key="2">
-                            <Link to="/test-point-collections">Test Point Collections</Link>
+                            <Link to="/input-conditions">Input Conditions</Link>
                         </Menu.Item>
                         <Menu.Item key="3">
+                            <Link to="/test-point-collections">Test Point Collections</Link>
+                        </Menu.Item>
+                        <Menu.Item key="4">
                             <Link to="/test-vector-generator">Test Vector Generator</Link>
                         </Menu.Item>
                     </Menu>
@@ -57,6 +60,7 @@ const App: React.FC = () => {
                                 </Space>*/}
                             </div>
                         } />
+                        <Route path="samples" element={<Samples data={data} />} />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
                         <Route path="test-point-collections" element={<TestPointCollections data={data} />} />
                         <Route path="test-vector-generator" element={<TestVectorGenerator data={data} />} />

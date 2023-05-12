@@ -22,10 +22,10 @@ const InputConditions = (jsonData ) => {
                 columns={columns}
                 dataSource={jsonData.data.Project.InputConditions}
                 rowKey="Id"
-                rowSelection={{
+                /*rowSelection={{
                     selectedRowKeys,
                     onChange: handleRowSelection,
-                }}
+                }}*/
             />
         </>
     );
