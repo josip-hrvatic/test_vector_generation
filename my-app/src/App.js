@@ -1,21 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { Layout, Menu, Carousel, Typography } from 'antd';
+import { Layout, Menu, Typography, Button, Space } from 'antd';
 import InputConditions from './InputConditions';
 import TestPointCollections from './TestPointCollections.tsx';
 import TestVectorGenerator from './TestVectorGenerator';
 import data from './data/Demo.json';
-import logo from './pictures/logo-desktop-en.png'
+import logo2 from './pictures/logo-infineon.svg';
+import logo from './pictures/FER_logo_3.png';
+import logo3 from './pictures/stemgameslogo2.png';
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
-
 
 const App: React.FC = () => {
     return (
         <Router>
             <Layout className="layout">
                 <Header>
+                    <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
                         <Menu.Item key="0">
                             <Link to="/">Home Page</Link>
@@ -31,14 +33,27 @@ const App: React.FC = () => {
                         </Menu.Item>
                     </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 134px)' }}>
+                <Content style={{ padding: '0 50px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 134px)', background: '#f0f2f5' }}>
                     <Routes>
                         <Route path="/" element={
-                            <div>
-                                <img src={logo} alt="Logo" style={{ width: '300px', marginBottom: '20px' }} />
-                                <Title level={2}>Welcome to the Test Vector Generator!</Title>
-                                <Title level={3}>Select an option from the menu to get started!</Title>
-                                <Title level={3}>Optimize your testing process!</Title>
+                            <div style={{ textAlign: 'center' }}>
+                                <Space size='large'>
+                                    <img src={logo} alt="Logo" style={{ width: '300px', marginBottom: '20px' }} />
+                                    <img src={logo2} alt="Logo2" style={{ width: '300px', marginBottom: '20px' }} />
+                                    <img src={logo3} alt="Logo3" style={{ width: '300px', marginBottom: '20px' }} />
+                                </Space>
+                                <Title level={1} style={{ color: '#1890ff' }}>Welcome to the Test Vector Generator!</Title>
+                                <Space size='large'>
+                                    <Link to="/input-conditions">
+                                        <Button type="primary" size='large'>Input Conditions</Button>
+                                    </Link>
+                                    <Link to="/test-point-collections">
+                                        <Button type="primary" size='large'>Test Point Collections</Button>
+                                    </Link>
+                                    <Link to="/test-vector-generator">
+                                        <Button type="primary" size='large'>Test Vector Generator</Button>
+                                    </Link>
+                                </Space>
                             </div>
                         } />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
