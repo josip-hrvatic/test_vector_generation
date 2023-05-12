@@ -40,11 +40,16 @@ const testVectors = {
     ],
 };
 
-
 const columns = [
     {
         title: 'Index',
         dataIndex: 'Index',
+    },
+    {
+        title: 'IsUsed',
+        dataIndex: 'IsUsed',
+        render: (value) => (value ? 'Yes' : 'No'),
+        defaultChecked: false, // Add defaultChecked property
     },
     {
         title: 'Temperature',
@@ -66,7 +71,7 @@ const columns = [
 
 const TestVectorGenerator: React.FC = () => {
     const [currentSample, setCurrentSample] = useState(sampleData[0].Id);
-    const [selectedColumns, setSelectedColumns] = useState<CheckboxValueType[]>(['Index', 'Temperature', 'Humidity']);
+    const [selectedColumns, setSelectedColumns] = useState<CheckboxValueType[]>(['Temperature', 'Humidity']);
     const [displayTable, setDisplayTable] = useState(false);
     const [generatedColumns, setGeneratedColumns] = useState(columns);
 
@@ -78,9 +83,22 @@ const TestVectorGenerator: React.FC = () => {
         setSelectedColumns(checkedValues);
     };
 
+    function cartesianProduct(arrays) {
+        return arrays.reduce(
+            (a, b) =>
+                a.flatMap((x) => b.map((y) => [...x, y])),
+            [[]]
+        );
+    }
+
     const generateTableData = () => {
         setGeneratedColumns(columns.filter((col) => selectedColumns.includes(col.dataIndex as string)));
         setDisplayTable(true);
+        //const keys = Object.keys(inputTestPoints);
+        //const values = Object.values(inputTestPoints);
+
+        // Calculate the cartesian product of the arrays
+        //const cartesianValues = cartesianProduct(values);
     };
 
     return (
@@ -94,7 +112,9 @@ const TestVectorGenerator: React.FC = () => {
             </Select>
 
             <Checkbox.Group
-                options={columns.map((col) => col.title)}
+                options={columns
+                    .filter((col) => col.dataIndex !== 'Index' && col.dataIndex !== 'IsUsed')
+                    .map((col) => col.title)}
                 defaultValue={selectedColumns}
                 onChange={handleColumnChange}
                 style={{ marginTop: '10px', marginBottom: '10px', display: 'block' }}
@@ -107,7 +127,7 @@ const TestVectorGenerator: React.FC = () => {
             {displayTable && (
                 <Table
                     dataSource={testVectors[currentSample]}
-                    columns={generatedColumns.filter((col) => selectedColumns.includes(col.dataIndex as string))}
+                    columns={[...columns.filter((col) => col.dataIndex === 'IsUsed' || col.dataIndex === 'Index'), ...generatedColumns]}
                     rowKey="Index"
                     pagination={false}
                     style={{ marginTop: '20px' }}
@@ -115,6 +135,7 @@ const TestVectorGenerator: React.FC = () => {
             )}
         </>
     );
+
 };
 
 export default TestVectorGenerator;
