@@ -56,6 +56,12 @@ const TestPointCollections: React.FC<TestPointCollectionsProps> = ({ data }) => 
 
     const columns = [
         {
+            title: 'ID',
+            dataIndex: 'Id',
+            key: 'Id',
+            render: (value: number) => <>{value}</>
+        },
+        {
             title: 'Input Condition ID',
             dataIndex: 'InputConditionId',
             key: 'InputConditionId',
@@ -71,10 +77,10 @@ const TestPointCollections: React.FC<TestPointCollectionsProps> = ({ data }) => 
             title: 'Test Points',
             dataIndex: 'TestPoints',
             key: 'TestPoints',
-            render: (testPoints: TestPoint[]) => 
+            render: (testPoints: TestPoint[]) =>
                 testPoints.map((point, index) => (
                     <Button type="link" key={index} onClick={() => handleValueClick(point.Value, 'TestPoints')}>
-                        {`${point.Value}${point.Unit}`}
+                        {`${point.Value}${point.Unit ? point.Unit : ''}`},
                     </Button>
                 ))
         },
