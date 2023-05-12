@@ -43,9 +43,9 @@ const App: React.FC = () => {
                                     <img src={logo3} alt="Logo3" style={{ width: '300px', marginBottom: '20px' }} />
                                 </Space>
                                 <Title level={1} style={{ color: '#1890ff' }}>Welcome to the Test Vector Generator!</Title>
-                                <Space size='large'>
+                                {/*<Space size='large'>
                                     <Link to="/input-conditions">
-                                        <Button type="primary" size='large'>Input Conditions</Button>
+                                        <Button type="primary" size='large'><Link to="/input-conditions">Input Conditions</Link></Button>
                                     </Link>
                                     <Link to="/test-point-collections">
                                         <Button type="primary" size='large'>Test Point Collections</Button>
@@ -53,7 +53,7 @@ const App: React.FC = () => {
                                     <Link to="/test-vector-generator">
                                         <Button type="primary" size='large'>Test Vector Generator</Button>
                                     </Link>
-                                </Space>
+                                </Space>*/}
                             </div>
                         } />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
