@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { List, Checkbox } from 'antd';
-
+import { List, Checkbox, Card } from 'antd';
+import {useState} from 'react';
 // Define your data types based on your data structure
 interface TestPoint {
     Value: number;
@@ -38,17 +37,24 @@ const TestPointCollections: React.FC<TestPointCollectionsProps> = ({ data }) => 
 
     return (
         <List
-            itemLayout="horizontal"
+            itemLayout="vertical"
             dataSource={data.TestPointCollections}
             renderItem={(collection) => (
                 <List.Item>
-                    <List.Item.Meta
-                        title={`Test Point Collection ID: ${collection.Id}`}
-                    />
-                    <Checkbox
-                        onChange={() => handleToggle(collection.Id)}
-                        checked={checked.includes(collection.Id)}
-                    />
+                    <Card title={`Test Point Collection ID: ${collection.Id}`}>
+                        <p>Input Condition ID: {collection.InputConditionId}</p>
+                        <p>Sample IDs: {collection.SampleIds.join(', ')}</p>
+                        <p>Test Points:</p>
+                        <ul>
+                            {collection.TestPoints.map((point, index) => (
+                                <li key={index}>{`Value: ${point.Value}, Unit: ${point.Unit}`}</li>
+                            ))}
+                        </ul>
+                        <Checkbox
+                            onChange={() => handleToggle(collection.Id)}
+                            checked={checked.includes(collection.Id)}
+                        />
+                    </Card>
                 </List.Item>
             )}
         />
