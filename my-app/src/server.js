@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
   host: 'localhost', // Replace with your MySQL server hostname
   user: 'admin', // Replace with your MySQL username
   password: 'placeholder', // Replace with your MySQL password
-  database: 'testvectorgeneration', // Replace with your MySQL database name
+  database: 'test', // Replace with your MySQL database name
 });
 
 
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/TestPointCollections', (req, res) => {
-  connection.query('SELECT * FROM project', (err, rows) => {
+  connection.query("SELECT tpc.Id AS TestPointCollectionId, tpc.InputConditionId,ic.Parameter,ic.Min,ic.Typical,ic.Max,ic.TimeBetweenPoints,GROUP_CONCAT(DISTINCT s.Id) AS SampleIds, GROUP_CONCAT(DISTINCT tp.Id) AS TestPointIds FROM TestPointCollections tpc LEFT JOIN InputCondition ic ON tpc.InputConditionId = ic.Id LEFT JOIN SampleList sl ON sl.TestPointCollectionId = tpc.Id LEFT JOIN Sample s ON sl.SampleId = s.Id LEFT JOIN TestPointList tpl ON tpl.TestPointCollectionId = tpc.Id LEFT JOIN TestPoint tp ON tpl.TestPointId = tp.Id GROUP BY tpc.Id;", (err, rows) => {
     if (err) {
       console.error('Error executing MySQL query: ' + err.stack);
       res.status(500).send('Error executing MySQL query');
@@ -66,34 +66,34 @@ app.get('/uploadDB', async function(req, res) {
       const project = JSON.parse(jsonData).Project;
       const projectQuery = `INSERT INTO Project (Id, Name) VALUES (?, ?)`;
       await executeQuery(projectQuery, [project.Id, project.Name]);
-  
+
       // Insert Sample data
       const samples = JSON.parse(jsonData).Project.Samples;
       const sampleQuery = `INSERT INTO Sample (Id, FamilyName, ProductName, Name) VALUES (?, ?, ?, ?)`;
       await Promise.all(samples.map(sample => executeQuery(sampleQuery, [sample.Id, sample.FamilyName, sample.ProductName, sample.Name])));
-  
+
       // Insert InputCondition data
       const inputConditions = JSON.parse(jsonData).Project.InputConditions;
       const inputConditionQuery = `INSERT INTO InputCondition (Id, Parameter, Min, Typical, Max, TimeBetweenPoints) VALUES (?, ?, ?, ?, ?, ?)`;
       await Promise.all(inputConditions.map(inputCondition => executeQuery(inputConditionQuery, [inputCondition.Id, inputCondition.Parameter, inputCondition.Min, inputCondition.Typical, inputCondition.Max, inputCondition.TimeBetweenPoints])));
-  
+
       // Insert TestPointCollections data
       const testPointCollections = JSON.parse(jsonData).TestPointCollections;
       const testPointCollectionQuery = `INSERT INTO TestPointCollections (Id, InputConditionId) VALUES (?, ?)`;
-      const testPointQuery = `INSERT INTO TestPoint (Id, Value, Unit) VALUES (?, ?, ?)`;
-  
+      const testPointQuery = `INSERT INTO TestPoint (Value, Unit) VALUES (?, ?)`;
+
       for (const testPointCollection of testPointCollections) {
         await executeQuery(testPointCollectionQuery, [testPointCollection.Id, testPointCollection.InputConditionId]);
         const testPointCollectionId = testPointCollection.Id;
-  
+
         for (const testPoint of testPointCollection.TestPoints) {
-          await executeQuery(testPointQuery, [testPoint.Id, testPoint.Value, testPoint.Unit]);
-          const testPointId = testPoint.Id;
-  
+          const testPointResult = await executeQuery(testPointQuery, [testPoint.Value, testPoint.Unit]);
+          const testPointId = testPointResult.insertId;
+
           const testPointListQuery = `INSERT INTO TestPointList (TestPointId, TestPointCollectionId) VALUES (?, ?)`;
           await executeQuery(testPointListQuery, [testPointId, testPointCollectionId]);
         }
-  
+
         for (const sampleId of testPointCollection.SampleIds) {
           const sampleListQuery = `INSERT INTO SampleList (SampleId, TestPointCollectionId) VALUES (?, ?)`;
           await executeQuery(sampleListQuery, [sampleId, testPointCollectionId]);
@@ -101,6 +101,7 @@ app.get('/uploadDB', async function(req, res) {
       }
   
       console.log('Data inserted successfully!');
+      res.status(200);
     } catch (error) {
       console.error('Error inserting data:', error);
     }
