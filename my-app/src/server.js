@@ -2,6 +2,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const fs = require('fs');
+const cors = require('cors');
 
 
 // Create MySQL connection
@@ -25,6 +26,7 @@ connection.connect((err) => {
 
 // Create Express app
 const app = express();
+app.use(cors());
 
 // Handle GET request
 app.get('/', (req, res) => {

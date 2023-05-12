@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+
+
 const fetchTestPointCollections = async () => {
   try {
-    const response = await axios.get('/api/TestPointCollections'); // Replace '/api/data' with your actual API endpoint
+    const response = await axios.get('http://localhost:4000/api/TestPointCollections');
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
