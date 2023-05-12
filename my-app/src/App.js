@@ -5,17 +5,21 @@ import InputConditions from './InputConditions';
 import TestPointCollections from './TestPointCollections.tsx';
 import TestVectorGenerator from './TestVectorGenerator';
 import data from './data/Demo.json';
+import logo from './pictures/logo-desktop-en.png'
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
+
 
 const App: React.FC = () => {
     return (
         <Router>
             <Layout className="layout">
                 <Header>
-                    <div className="logo" />
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
+                        <Menu.Item key="0">
+                            <Link to="/">Home Page</Link>
+                        </Menu.Item>
                         <Menu.Item key="1">
                             <Link to="/input-conditions">Input Conditions</Link>
                         </Menu.Item>
@@ -30,16 +34,11 @@ const App: React.FC = () => {
                 <Content style={{ padding: '0 50px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 134px)' }}>
                     <Routes>
                         <Route path="/" element={
-                            <div autoplay>
-                                <div>
-                                    <Title>Welcome to the Test Vector Generator!</Title>
-                                </div>
-                                <div>
-                                    <Title>Select an option from the menu to get started</Title>
-                                </div>
-                                <div>
-                                    <Title>Optimize your testing process</Title>
-                                </div>
+                            <div>
+                                <img src={logo} alt="Logo" style={{ width: '300px', marginBottom: '20px' }} />
+                                <Title level={2}>Welcome to the Test Vector Generator!</Title>
+                                <Title level={3}>Select an option from the menu to get started!</Title>
+                                <Title level={3}>Optimize your testing process!</Title>
                             </div>
                         } />
                         <Route path="input-conditions" element={<InputConditions data={data} />} />
@@ -47,7 +46,7 @@ const App: React.FC = () => {
                         <Route path="test-vector-generator" element={<TestVectorGenerator data={data} />} />
                     </Routes>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+                <Footer style={{ textAlign: 'center', background: '#001529', color: '#fff', lineHeight: '2.5rem' }}>Odabrani Team ©2023 All Rights Reserved</Footer>
             </Layout>
         </Router>
     );
