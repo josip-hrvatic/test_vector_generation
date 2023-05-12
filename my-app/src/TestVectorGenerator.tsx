@@ -82,7 +82,7 @@ const columns = [
     },
 ];
 
-const TestVectorGenerator: React.FC = ({data}) => {
+const TestVectorGenerator: React.FC = (data) => {
     const [currentSample, setCurrentSample] = useState(sampleData[0].Id);
     const [selectedColumns, setSelectedColumns] = useState<CheckboxValueType[]>(['Temperature', 'Humidity']);
     const [displayTable, setDisplayTable] = useState(false);
@@ -109,7 +109,7 @@ const TestVectorGenerator: React.FC = ({data}) => {
         setDisplayTable(true);
 
         const inputTestPoints = {}
-        for (let i = 0; i < data.TestPointCollections.length; i++) {
+        /*for (let i = 0; i < data.TestPointCollections.length; i++) {
             if (data.TestPointCollections[i].SampleIds.includes(currentSample)) {
                 if (data.TestPointCollections[i].InputConditionId in inputTestPoints)
                     inputTestPoints[data.TestPointCollections[i].InputConditionId].push(data.TestPointCollections[i].TestPoints);
@@ -122,7 +122,7 @@ const TestVectorGenerator: React.FC = ({data}) => {
 
         //Calculate the cartesian product of the arrays
         const cartesianValues = cartesianProduct(values);
-        console.log(cartesianValues)
+        console.log(cartesianValues)*/
     };
 
     return (
