@@ -38,6 +38,17 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/api/TestPointCollections', (req, res) => {
+  connection.query('SELECT * FROM project', (err, rows) => {
+    if (err) {
+      console.error('Error executing MySQL query: ' + err.stack);
+      res.status(500).send('Error executing MySQL query');
+      return;
+    }
+    res.json(rows);
+  });
+});
+
 // Handle GET request
 app.get('/uploadDB', async function(req, res) {
     let filePath = "./data/Demo.json";

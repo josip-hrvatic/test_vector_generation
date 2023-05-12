@@ -1,5 +1,6 @@
 import { Table, Checkbox, Modal, InputNumber, Button, Input } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import fetchTestPointCollections from './api'; // Import the fetchData function
 
 interface TestPoint {
     Value: number;
@@ -25,6 +26,20 @@ const TestPointCollections: React.FC<TestPointCollectionsProps> = ({ data }) => 
     const [currentValue, setCurrentValue] = useState<any>(null);
     const [newValue, setNewValue] = useState<any>(null);
     const [currentColumn, setCurrentColumn] = useState<string>('');
+    const [fetchedData, setFetchedData] = useState<any>(null); // State for storing the fetched data
+
+    useEffect(() => {
+        const fetchInitialData = async () => {
+          try {
+            const _data = await fetchTestPointCollections(); // Fetch data using the fetchData function
+            setFetchedData(_data);
+          } catch (error) {
+            console.error('Error fetching initial data:', error);
+          }
+        };
+    
+        fetchInitialData();
+      }, []);
 
     const handleToggle = (value: number) => {
         const currentIndex = checked.indexOf(value);
